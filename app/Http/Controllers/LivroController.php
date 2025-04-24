@@ -23,7 +23,6 @@ class LivroController extends Controller
         $data = json_decode ( $response -> getBody (), true ); 
         return var_dump($data);
     } catch (Exception  $e ) { 
-        // Manipule quaisquer erros que ocorram durante a solicitação da API 
         return  view ( 'api_error' , [ 'error' => $e -> getMessage ()]); 
     } 
     }
