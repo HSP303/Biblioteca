@@ -27,12 +27,26 @@ class LivroController extends Controller
     } 
     }
 
+    /*
+    public function listaLivros() 
+    {
+        $this->client = new Client();
+        try {
+            $responde = $this->client->get($this->apiurl);
+            $data = json_decode($responde->getBody(), true);
+
+            return view('livros.lista', ['livros' => $data]);
+        } catch (Exception $e) {
+            return view('api_error', ['error' => $e->getMessage()]);
+        }
+    } em construção ainda */
+    
     public function postLivro(Request $request){
         $request->validate([
             'titulo' => 'required|string|max:100',
             'autor' => 'required|string|max:100',
-            'ano' => 'required|number',
-            'edicao' => 'required|number'
+            'ano' => 'required|integer', //alterei de number para integer, para tratar os erros que ocorriam com os tipos numéricos
+            'edicao' => 'required|integer'// alterei também, Pedro
         ]);
 
         $this->client = new Client();

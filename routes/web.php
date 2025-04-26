@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Route::get( '/livro/lista' , [ LivroController :: class , 'getLivro' ]);
 Route::post( '/livro/create' , [ LivroController :: class , 'postLivro' ])->name('livro.post');
+//Route::get('/livro/lista', [LivroController :: class, 'listaLivros']);
 
 Route::get('/livro', function () {
     return view('cadlivro');
