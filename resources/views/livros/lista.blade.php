@@ -1,61 +1,37 @@
-<!-- resources/views/livros/lista.blade.php -->
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Livros</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even){
-            background-color: #f2f2f2;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 30px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Lista de Livros</h1>
-    <table>
-        <thead>
+@extends('layouts.app')
+
+@section('content')
+    <h1 class="mb-4">Livros Cadastrados</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Título</th>
                 <th>Autor</th>
                 <th>Ano</th>
                 <th>Edição</th>
-                <th>Reservado</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($livros as $livro)
+            @foreach($livros as $livro)
                 <tr>
                     <td>{{ $livro['id'] }}</td>
                     <td>{{ $livro['titulo'] }}</td>
                     <td>{{ $livro['autor'] }}</td>
                     <td>{{ $livro['ano'] }}</td>
                     <td>{{ $livro['edicao'] }}</td>
-                    <td>{{ $livro['reservado'] ? 'Sim' : 'Não' }}</td>
-                </tr>
+                    <td>
+                        <a href="{{ route('livro.edit', ['id' => $livro['id']]) }}" class="btn btn-primary btn-sm">Editar</a>
+                        <form action="{{ route('livro.delete', $livro['id']) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir este livro?')">Excluir</button>
+                        </form>
+                    </td>
+                </tr> 
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+@endsection
