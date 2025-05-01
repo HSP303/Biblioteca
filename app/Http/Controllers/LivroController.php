@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use  GuzzleHttp\Client ; 
+use Illuminate\Support\Collection;
 
 class LivroController extends Controller
 {
@@ -17,14 +18,22 @@ class LivroController extends Controller
 
     public function getLivro(){
         $this->client = new Client();
-    try {
-        $response = $this->client -> get($this->apiurl);
- 
-        $data = json_decode ( $response -> getBody (), true ); 
-        return var_dump($data);
-    } catch (Exception  $e ) { 
-        return  view ( 'api_error' , [ 'error' => $e -> getMessage ()]); 
-    } 
+        try {
+            $response = $this->client -> get($this->apiurl);
+    
+            $data = json_decode ( $response -> getBody (), true ); 
+
+            $collection = collect();
+
+            foreach ($data as $json) {
+                $collection->push(Collection::fromJson(json_encode($json)));  
+            }
+            //$collection = $collection->get(1);
+            return view ( 'lista' , compact('collection'));
+            //return view ('lista')->with('collection', $collection);
+        } catch (Exception  $e ) { 
+            return  view ( 'api_error' , [ 'error' => $e -> getMessage ()]); 
+        } 
     }
 
     /*
@@ -41,39 +50,44 @@ class LivroController extends Controller
         }
     } em construção ainda */
     
-    public function postLivro(Request $request){
+ public function postLivro(Request $request){
         $request->validate([
             'titulo' => 'required|string|max:100',
             'autor' => 'required|string|max:100',
-            'ano' => 'required|integer', //alterei de number para integer, para tratar os erros que ocorriam com os tipos numéricos
-            'edicao' => 'required|integer'// alterei também, Pedro
+            'ano' => 'required|integer',
+            'edicao' => 'required|integer'
         ]);
-
+    
         $this->client = new Client();
-
+    
         try {
-            $request = $this->client -> request(
+            $this->client->request(
                 'POST', 
                 $this->apiurl, 
-                ['json' => ['titulo' => 'teste',//'$request->input('titulo')', 
-                            'autor' => 'teste',//$request->input('autor'), 
-                            'ano' => 2000,////$request->input('ano'), 
-                            'edicao' => 1]]);//$request->input('edicao')]]);
+                [
+                    'json' => [
+                        'titulo' => $request->input('titulo'),
+                        'autor' => $request->input('autor'),
+                        'ano' => $request->input('ano'),
+                        'edicao' => $request->input('edicao')
+                    ]
+                ]
+            );
+    
+            // Recarrega os dados após salvar
+            $response = $this->client->get($this->apiurl);
+            $data = json_decode($response->getBody(), true); 
+    
+            $collection = collect();
 
-            $response = $this->client -> get($this->apiurl);
-            /*{
-{
-	"titulo":"Biblia",
-	"autor":"Indefinido",
-	"ano":"0000",
-	"edicao":"1"
-}
-}*/ 
-            $data = json_decode ( $response -> getBody (), true ); 
-            return var_dump($data);
-        } catch (Exception  $e ) { 
-            // Manipule quaisquer erros que ocorram durante a solicitação da API 
-            return  view ( 'api_error' , [ 'error' => $e -> getMessage ()]); 
+            foreach ($data as $json) {
+                $collection->push(Collection::fromJson(json_encode($json)));  
+            }
+            //$collection = $collection->get(1);
+            return view ( 'lista' , compact('collection'));
+    
+        } catch (Exception $e) { 
+            return view('api_error', ['error' => $e->getMessage()]); 
         } 
     }
 }
