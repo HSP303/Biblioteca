@@ -24,13 +24,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/livro/lista') }}" target="_blank">
-                            <i class="bi bi-book"></i> Lista de Livros
+                        <a class="nav-link" href="{{ url('/livro') }}" target="_blank">
+                            <i class="bi bi-plus-square"></i> Cadastrar Livro
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/livro') }}" target="_blank">
-                            <i class="bi bi-plus-square"></i> Cadastrar Livro
+                        <a class="nav-link" href="{{ url('/livro/lista') }}" target="_blank">
+                            <i class="bi bi-book"></i> Lista de Livros
                         </a>
                     </li>
                     <li class="nav-item">
