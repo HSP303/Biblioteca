@@ -14,7 +14,7 @@ Route::post('/livro/create', [LivroController::class, 'postLivro'])->name('livro
 Route::get('/livro/lista', [LivroController::class, 'listaLivros']);
 //Route::get('/livro/lista', [LivroController::class, 'getLivro']);
 
-Route::get('/pessoas', [PessoaController::class, 'listaPessoas']);
+Route::get('/pessoas/lista', [PessoaController::class, 'listaPessoas']);
 Route::post('/pessoas', [PessoaController::class, 'postPessoa']);
 
 Route::get('/livro', function (): View {
