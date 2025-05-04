@@ -25,8 +25,14 @@
 
                     <div class="mb-3">
                         <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" name="telefone" id="telefone" class="form-control">
+                        <input type="text" name="tel" id="telefone" class="form-control">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="endereco" class="form-label">Endereço</label>
+                        <input type="text" name="endereco" id="endereco" class="form-control" required>
+                    </div>
+                    
 
                     <button type="submit" class="btn btn-dark w-100">Cadastrar</button>
                 </form>
@@ -34,4 +40,9 @@
         </div>
     </div>
 </div>
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 @endsection

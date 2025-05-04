@@ -29,7 +29,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Salvar Alterações</button>
-        <a href="{{ url('/livro/lista') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url('/pessoas/lista') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

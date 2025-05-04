@@ -23,7 +23,7 @@
                     <td>{{ $livro['ano'] }}</td>
                     <td>{{ $livro['edicao'] }}</td>
                     <td>
-                        <a href="{{ route('livro.edit', ['id' => $livro['id']]) }}" class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{{ route('livro.edit', ['id' => $livro['id']]) }}" class="btn btn-primary btn-sm me-2">Editar</a>
                         <form action="{{ route('livro.delete', $livro['id']) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
