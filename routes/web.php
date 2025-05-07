@@ -1,13 +1,24 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\PessoaController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 //Rotas para entidade livros
 Route::get('/livro/lista', [LivroController::class, 'getLivro']);
@@ -37,12 +48,4 @@ Route::delete('/pessoas/delete/{id}', [PessoaController::class, 'deletePessoa'])
 Route::put('/pessoas/update/{id}', [PessoaController::class, 'updatePessoa'])->name('pessoa.update');
 Route::get('/pessoas/edit/{id}', [PessoaController::class, 'editPessoa'])->name('pessoa.edit');
 
-
-    
-    /*
-    Route::get('/livro', function () {
-        return view('cadlivro'); // comentei aqui Pedro
-    */
-
-
-
+require __DIR__.'/auth.php';

@@ -42,6 +42,7 @@
                             <i class="bi bi-person-lines-fill"></i> Lista de Pessoas
                         </a>
                     </li>
+                    
                 </ul>
             </div>
         </div>

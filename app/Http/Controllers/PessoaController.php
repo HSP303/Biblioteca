@@ -115,7 +115,7 @@ class PessoaController extends Controller
                 'json' => [
                     'nome' => $request->input('nome'),
                     'email' => $request->input('email'),
-                    'enredeco' => $request->input('endereco'),
+                    'endereco' => $request->input('endereco'),
                     'tel' => $request->input('tel')
                 ]
             ]);
