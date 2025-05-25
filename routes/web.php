@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\PessoaController;
+use App\Http\Controllers\ReservaController;
 use Illuminate\View\View;
 
 Route::get('/', function () {
@@ -23,14 +24,18 @@ Route::middleware('auth')->group(function () {
 //Rotas para entidade livros
 Route::get('/livro/lista', [LivroController::class, 'getLivro']);
 Route::post('/livro/create', [LivroController::class, 'postLivro'])->name('livro.post');
-Route::get('/livro/lista', [LivroController::class, 'listaLivros']);
+//Route::get('/livro/lista', [LivroController::class, 'listaLivros']);
 Route::get('/livro', function (): View {
     return view('livros.cadlivro');
 });
 Route::delete('/livro/delete/{id}', [LivroController::class, 'deleteLivro'])->name('livro.delete');
 Route::put('/livro/update/{id}', [LivroController::class, 'updateLivro'])->name('livro.update');
 Route::get('/livro/edit/{id}', [LivroController::class, 'editLivro'])->name('livro.edit');
+Route::get('/livro/reserve/{id}', [LivroController::class, 'reserveLivro'])->name('livro.reserve');
 //Route::get('/livro/lista', [LivroController::class, 'getLivro']);
+
+Route::get('/reserva/new', [ReservaController::class, 'index'])->name('reserva.get');
+Route::post('/reserva/create', [ReservaController::class, 'postReserva'])->name('reserva.create');
 
 //Rotas para entidade pessoas
 Route::get('/pessoas/lista', [PessoaController::class, 'listaPessoas'])->name('pessoas.lista');

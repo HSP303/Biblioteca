@@ -27,8 +27,9 @@
                         <form action="{{ route('livro.delete', $livro['id']) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Deseja excluir este livro?')">Excluir</button>
+                            <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Deseja excluir este livro?')">Excluir</button>
                         </form>
+                        <a href="{{ route('reserva.get', ['id' => $livro['id']]) }}" class="btn btn-success btn-sm">Reservar</a>
                     </td>
                 </tr> 
             @endforeach

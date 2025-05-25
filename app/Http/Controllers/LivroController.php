@@ -36,7 +36,48 @@ class LivroController extends Controller
         } 
     }
 
-    public function listaLivros() 
+    public function reserveLivro(Request $request){
+        $request->validate([
+            'titulo' => 'required|string|max:100',
+            'autor' => 'required|string|max:100',
+            'ano' => 'required|integer',
+            'edicao' => 'required|integer' 
+        ]);
+    
+        $this->client = new Client();
+    
+        try {
+            $this->client->request(
+                'POST', 
+                $this->apiurl, 
+                [
+                    'json' => [
+                        'titulo' => $request->input('titulo'),
+                        'autor' => $request->input('autor'),
+                        'ano' => $request->input('ano'),
+                        'edicao' => $request->input('edicao')
+                    ]
+                ]
+            );
+    
+            $response = $this->client->get($this->apiurl);
+            $data = json_decode($response->getBody(), true); 
+    
+            $collection = collect();
+
+            foreach ($data as $json) {
+                $collection->push(Collection::fromJson(json_encode($json)));  
+            }
+            //$collection = $collection->get(1);
+            return view('livros.lista', ['livros' => $collection]);
+           // return view ( 'lista' , compact('collection'));
+    
+        } catch (Exception $e) { 
+            return view('api_error', ['error' => $e->getMessage()]); 
+        }  
+    }
+
+    /*public function listaLivros() 
     {
         $this->client = new Client();
         try {
@@ -52,7 +93,7 @@ class LivroController extends Controller
         } catch (Exception $e) {
             return view('api_error', ['error' => $e->getMessage()]);
         }
-    }
+    }*/
     
     
  public function postLivro(Request $request){
