@@ -15,9 +15,26 @@ class ReservaController extends Controller
     function __construct() {
         $this->apiurl = "http://localhost:8080/reservas";
     }
-    public function index(){
+   /* public function index(){
         return view ('reserva.create');
+    }*/
+
+    public function index() {
+    $client = new Client();
+
+    try {
+        $livrosResponse = $client->get('http://localhost:8080/livros');
+        $pessoasResponse = $client->get('http://localhost:8080/pessoas');
+
+        $livros = json_decode($livrosResponse->getBody()->getContents(), true);
+        $pessoas = json_decode($pessoasResponse->getBody()->getContents(), true);
+
+        return view('reserva.create', compact('livros', 'pessoas'));
+    } catch (Exception $e) {
+        return view('api_error', ['error' => $e->getMessage()]);
     }
+}
+
 
     public function postReserva(Request $request){
         $request->validate([
