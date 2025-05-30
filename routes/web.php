@@ -34,8 +34,9 @@ Route::get('/livro/edit/{id}', [LivroController::class, 'editLivro'])->name('liv
 Route::get('/livro/reserve/{id}', [LivroController::class, 'reserveLivro'])->name('livro.reserve');
 //Route::get('/livro/lista', [LivroController::class, 'getLivro']);
 
-Route::get('/reserva/new', [ReservaController::class, 'index'])->name('reserva.get');
+Route::get('/reserva/new/{id}', [ReservaController::class, 'index'])->name('reserva.get');
 Route::post('/reserva/create', [ReservaController::class, 'postReserva'])->name('reserva.create');
+Route::delete('/reserva/delete', [ReservaController::class, 'deleteReserva'])->name('reserva.delete');
 
 //Rotas para entidade pessoas
 Route::get('/pessoas/lista', [PessoaController::class, 'listaPessoas'])->name('pessoas.lista');
