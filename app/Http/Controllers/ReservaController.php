@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use GuzzleHttp\Client;
+use Illuminate\Support\Collection;
 
 class ReservaController extends Controller
 {
@@ -13,7 +14,7 @@ class ReservaController extends Controller
     private Client $client;
 
     public function __construct() {
-        $this->apiUrl = 'http://localhost:8080';
+        $this->apiUrl = 'http://localhost:8080/reservas';
         $this->client = new Client();
     }
 
@@ -30,6 +31,28 @@ class ReservaController extends Controller
         } catch (Exception $e) {
             return view('api_error', ['error' => $e->getMessage()]);
         }
+    }
+
+    public function getReserva(){
+        $this->client = new Client();
+        try {
+            $response = $this->client -> get($this->apiUrl);
+    
+            $data = json_decode ( $response -> getBody (), true ); 
+
+            $collection = collect();
+
+            foreach ($data as $obj) {
+                $collection->push(Collection::fromJson(json_encode($obj))); 
+            }
+
+            //return dd($collection);
+            //$collection = $collection->get(1);
+            return view('reserva.lista', ['reservas' => $collection]);
+            //return view ('lista')->with('collection', $collection);
+        } catch (Exception  $e ) { 
+            return  view ( 'api_error' , [ 'error' => $e -> getMessage ()]); 
+        } 
     }
 
     // Envia a reserva para o backend Java
