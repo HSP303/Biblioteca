@@ -20,18 +20,6 @@
             <input type="text" class="form-control" name="pessoa" id="pessoa" required>
         </div>
 
-        <div class="state-select-list">
-            <input type="text" class="state-select-list__search" placeholder="Selecionar Setor...">  
-            <ul>
-                <li class="state-select-list__item" data-id="hsp">Hospital</li>
-                <li class="state-select-list__item" data-id="1">Recepção</li>
-                <li class="state-select-list__item" data-id="2">Enfermaria</li>
-                <li class="state-select-list__item" data-id="3">Sala de Espera</li>
-                <li class="state-select-list__item" data-id="4">Ambulatório</li>
-                <li class="state-select-list__item" data-id="5">Leito</li>
-            </ul>
-        </div>
-
         <button type="submit" class="btn btn-success">Reservar</button>
         <a href="{{ url('/livro/lista') }}" class="btn btn-secondary">Cancelar</a>
     </form>
