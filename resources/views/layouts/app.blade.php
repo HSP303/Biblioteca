@@ -11,45 +11,64 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="{{ route('welcome') }}">
-                <img src="{{ asset('images/umbrellacorporation.png') }}" alt="Umbrella Logo" width="30" class="me-2">
-                <span>Raccoon Books</span>
-            </a> 
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/livro') }}" target="_blank">
-                            <i class="bi bi-plus-square"></i> Cadastrar Livro
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/livro/lista') }}" target="_blank">
-                            <i class="bi bi-book"></i> Lista de Livros
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/pessoas/cadastrar') }}" target="_blank">
-                            <i class="bi bi-person-plus"></i> Cadastrar Pessoa
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/pessoas/lista') }}" target="_blank">
-                            <i class="bi bi-person-lines-fill"></i> Lista de Pessoas
-                        </a>
-                    </li>
-                    
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('welcome') }}">
+            <img src="{{ asset('images/umbrellacorporation.png') }}" alt="Umbrella Logo" width="30" class="me-2">
+            <span>Raccoon Books</span>
+        </a> 
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+
+                                <!-- PESSOAS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pessoasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person"></i> Pessoas
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="pessoasDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/pessoas/cadastrar') }}" target="_blank">
+                                <i class="bi bi-person-plus"></i> Cadastrar Pessoa
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/pessoas/lista') }}" target="_blank">
+                                <i class="bi bi-person-lines-fill"></i> Lista de Pessoas
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- LIVROS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="livrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-book"></i> Livros
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="livrosDropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/livro') }}" target="_blank">
+                                <i class="bi bi-plus-square"></i> Cadastrar Livro
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('/livro/lista') }}" target="_blank">
+                                <i class="bi bi-book"></i> Lista de Livros
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
         </div>
-    </nav>
-    
+    </div>
+</nav>
+
     <!-- conteudo principal -->
     <div class="container mt-5">
         @yield('content')

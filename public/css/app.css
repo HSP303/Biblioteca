@@ -10,10 +10,17 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+
+/*body {
+    background: url('{{ asset('images/library-dark.jpg') }}') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}*/
+
 body {
     background-color: #121212;
     color: #f0f0f0;
-    padding-top: 70px; /* ajuste conforme a altura da sua navbar */
+    padding-top: 70px; 
 
 }
 .navbar-dark .navbar-nav .nav-link {
@@ -30,8 +37,9 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000; /* Certifique-se de que fique acima de tudo */
+    z-index: 1000;
 }
+
 
 
 
