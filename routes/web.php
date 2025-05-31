@@ -32,6 +32,7 @@ Route::delete('/livro/delete/{id}', [LivroController::class, 'deleteLivro'])->na
 Route::put('/livro/update/{id}', [LivroController::class, 'updateLivro'])->name('livro.update');
 Route::get('/livro/edit/{id}', [LivroController::class, 'editLivro'])->name('livro.edit');
 Route::get('/livro/reserve/{id}', [LivroController::class, 'reserveLivro'])->name('livro.reserve');
+Route::get('/livro/lista', [LivroController::class, 'getLivro'])->name('livro.get');
 //Route::get('/livro/lista', [LivroController::class, 'getLivro']);
 
 Route::get('/reserva/new/{id}', [ReservaController::class, 'index'])->name('reserva.get');
