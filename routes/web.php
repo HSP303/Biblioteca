@@ -54,4 +54,11 @@ Route::delete('/pessoas/delete/{id}', [PessoaController::class, 'deletePessoa'])
 Route::put('/pessoas/update/{id}', [PessoaController::class, 'updatePessoa'])->name('pessoa.update');
 Route::get('/pessoas/edit/{id}', [PessoaController::class, 'editPessoa'])->name('pessoa.edit');
 
+//Rotas para entidade reserva
+//by Vini 31/05/2025
+Route::get('/reserva/new/{id}', [ReservaController::class, 'index'])->name('reserva.get');
+//by Vini 31/05/2025
+Route::get('/reserva/{idlivro}', [ReservaController::class, 'index'])->name('reserva.create');
+//by Vini 31/05/2025
+Route::post('/reserva', [ReservaController::class, 'postReserva'])->name('reserva.store');
 require __DIR__.'/auth.php';
