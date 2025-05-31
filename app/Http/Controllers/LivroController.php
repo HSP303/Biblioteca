@@ -16,23 +16,39 @@ class LivroController extends Controller
         $this->apiurl = "http://localhost:8080/livros";
     }
 
-    public function getLivro(){
+    public function getLivro(Request $request){
         $this->client = new Client();
-        try {
-            $response = $this->client -> get($this->apiurl);
-    
-            $data = json_decode ( $response -> getBody (), true ); 
+        
+        $params = [];
+        if ($request->filled('titulo')) {
+            $params['titulo'] = $request->input('titulo');
+        }
+        if ($request->filled('autor')) {
+            $params['autor'] = $request->input('autor');
+        }
+        if ($request->filled('ano')) {
+            $params['ano'] = $request->input('ano');
+        }
 
+        try {
+            $response = $this->client->get($this->apiurl, [
+                'query' => $params
+            ]);
+
+            $data = json_decode($response->getBody(), true);
             $collection = collect();
 
             foreach ($data as $json) {
-                $collection->push(Collection::fromJson(json_encode($json)));  
+                $collection->push(\Illuminate\Support\Collection::fromJson(json_encode($json)));  
             }
-            //$collection = $collection->get(1);
-            return view('livros.lista', ['livros' => $collection]);
-            //return view ('lista')->with('collection', $collection);
-        } catch (Exception  $e ) { 
-            return  view ( 'api_error' , [ 'error' => $e -> getMessage ()]); 
+
+            return view('livros.lista', [
+                'livros' => $collection,
+                'filtros' => $params
+            ]);
+            
+        } catch (Exception $e) { 
+            return view('api_error', ['error' => $e->getMessage()]); 
         } 
     }
 
