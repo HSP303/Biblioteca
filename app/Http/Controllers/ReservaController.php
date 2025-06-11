@@ -18,8 +18,24 @@ class ReservaController extends Controller
         $this->client = new Client();
     }
 
+    public function index() {
+    $client = new Client();
+
+    try {
+        $livrosResponse = $client->get('http://localhost:8080/livros');
+        $pessoasResponse = $client->get('http://localhost:8080/pessoas');
+
+        $livros = json_decode($livrosResponse->getBody()->getContents(), true);
+        $pessoas = json_decode($pessoasResponse->getBody()->getContents(), true);
+
+        return view('reserva.create', compact('livros', 'pessoas'));
+    } catch (Exception $e) {
+        return view('api_error', ['error' => $e->getMessage()]);
+    }
+}
+
     // carrega a view de criação com as pessoas (la do java)
-    public function index($idlivro): View {
+    /*public function index($idlivro): View {
         try {
             $response = $this->client->get($this->apiUrl . '/pessoas');
             $pessoas = json_decode($response->getBody(), true);
@@ -31,7 +47,9 @@ class ReservaController extends Controller
         } catch (Exception $e) {
             return view('api_error', ['error' => $e->getMessage()]);
         }
-    }
+    }*/
+
+
 
     public function getReserva(){
         $this->client = new Client();
