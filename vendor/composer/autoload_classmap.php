@@ -19,6 +19,7 @@ return array(
     'App\\Http\\Controllers\\LivroController' => $baseDir . '/app/Http/Controllers/LivroController.php',
     'App\\Http\\Controllers\\PessoaController' => $baseDir . '/app/Http/Controllers/PessoaController.php',
     'App\\Http\\Controllers\\ProfileController' => $baseDir . '/app/Http/Controllers/ProfileController.php',
+    'App\\Http\\Controllers\\ReservaController' => $baseDir . '/app/Http/Controllers/ReservaController.php',
     'App\\Http\\Requests\\Auth\\LoginRequest' => $baseDir . '/app/Http/Requests/Auth/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',

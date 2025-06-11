@@ -18,7 +18,7 @@ class ReservaController extends Controller
         $this->client = new Client();
     }
 
-    // Carrega a view de criação com as pessoas (vindo da API Java)
+    // carrega a view de criação com as pessoas (la do java)
     public function index($idlivro): View {
         try {
             $response = $this->client->get($this->apiUrl . '/pessoas');
@@ -55,8 +55,7 @@ class ReservaController extends Controller
         } 
     }
 
-    // Envia a reserva para o backend Java
-    public function postReserva(Request $request): View {
+    /*public function postReserva(Request $request): View {
         $request->validate([
             'livro' => 'required|integer',
             'pessoa' => 'required|integer'
@@ -78,5 +77,35 @@ class ReservaController extends Controller
         } catch (Exception $e) {
             return view('api_error', ['error' => $e->getMessage()]);
         }
+    }*/
+
+    public function postReserva(Request $request){
+        $request->validate([
+            'livro' => 'required|integer',
+            'pessoa' => 'required|integer'
+        ]);
+    
+        $this->client = new Client();
+    
+        try {
+            $this->client->request(
+                'POST', 
+                $this->apiUrl, 
+                [
+                    'json' => [
+                        'livroId' => $request->input('livro'),
+                        'pessoaId' => $request->input('pessoa')
+                    ]
+                ]
+            );
+    
+            //$collection = $collection->get(1);
+            return view('welcome');
+           // return view ( 'lista' , compact('collection'));
+    
+        } catch (Exception $e) { 
+            return view('api_error', ['error' => $e->getMessage()]); 
+        } 
     }
+
 }

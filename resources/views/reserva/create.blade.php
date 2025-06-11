@@ -12,7 +12,7 @@
 
         <div class="mb-3">
             <label for="livro" class="form-label">Livro:</label>
-            <input type="text" class="form-control" name="livro" id="livro" value="{{ $idlivro }}" readonly>
+            <input type="text" class="form-control" name="livro" id="livro" value="{{ @Request::segment(3) }}" readonly>
         </div>
 
         <div class="mb-3">

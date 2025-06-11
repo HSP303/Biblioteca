@@ -534,6 +534,7 @@ class ComposerStaticInit3e4b2525717283e308dfbfa5be3f4f8e
         'App\\Http\\Controllers\\LivroController' => __DIR__ . '/../..' . '/app/Http/Controllers/LivroController.php',
         'App\\Http\\Controllers\\PessoaController' => __DIR__ . '/../..' . '/app/Http/Controllers/PessoaController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\ReservaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReservaController.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
