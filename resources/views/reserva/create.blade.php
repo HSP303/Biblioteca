@@ -26,7 +26,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-success">Reservar</button>
+        <button type="submit" class="btn btn-success me-2">Reservar</button>
         <a href="{{ url('/livro/lista') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
