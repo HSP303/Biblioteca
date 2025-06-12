@@ -19,38 +19,20 @@ class ReservaController extends Controller
     }
 
     public function index() {
-    $client = new Client();
+        $client = new Client();
 
-    try {
-        $livrosResponse = $client->get('http://localhost:8080/livros');
-        $pessoasResponse = $client->get('http://localhost:8080/pessoas');
-
-        $livros = json_decode($livrosResponse->getBody()->getContents(), true);
-        $pessoas = json_decode($pessoasResponse->getBody()->getContents(), true);
-
-        return view('reserva.create', compact('livros', 'pessoas'));
-    } catch (Exception $e) {
-        return view('api_error', ['error' => $e->getMessage()]);
-    }
-}
-
-    // carrega a view de criação com as pessoas (la do java)
-    /*public function index($idlivro): View {
         try {
-            $response = $this->client->get($this->apiUrl . '/pessoas');
-            $pessoas = json_decode($response->getBody(), true);
+            $livrosResponse = $client->get('http://localhost:8080/livros');
+            $pessoasResponse = $client->get('http://localhost:8080/pessoas');
 
-            return view('reserva.create', [
-                'idlivro' => $idlivro,
-                'pessoas' => $pessoas
-            ]);
+            $livros = json_decode($livrosResponse->getBody()->getContents(), true);
+            $pessoas = json_decode($pessoasResponse->getBody()->getContents(), true);
+
+            return view('reserva.create', compact('livros', 'pessoas'));
         } catch (Exception $e) {
             return view('api_error', ['error' => $e->getMessage()]);
         }
-    }*/
-
-
-
+    }
     public function getReserva(){
         $this->client = new Client();
         try {
@@ -73,30 +55,6 @@ class ReservaController extends Controller
         } 
     }
 
-    /*public function postReserva(Request $request): View {
-        $request->validate([
-            'livro' => 'required|integer',
-            'pessoa' => 'required|integer'
-        ]);
-
-        try {
-            $this->client->request(
-                'POST',
-                $this->apiUrl . '/reservas',
-                [
-                    'json' => [
-                        'livroId' => $request->input('livro'),
-                        'pessoaId' => $request->input('pessoa')
-                    ]
-                ]
-            );
-
-            return view('welcome'); // ou redirecionamento com mensagem
-        } catch (Exception $e) {
-            return view('api_error', ['error' => $e->getMessage()]);
-        }
-    }*/
-
     public function postReserva(Request $request){
         $request->validate([
             'livro' => 'required|integer',
@@ -118,12 +76,24 @@ class ReservaController extends Controller
             );
     
             //$collection = $collection->get(1);
-            return view('welcome');
+             
            // return view ( 'lista' , compact('collection'));
-    
+            return redirect()->route('reserva.lista');
         } catch (Exception $e) { 
             return view('api_error', ['error' => $e->getMessage()]); 
         } 
+    }
+
+    public function deleteReserva($id) {
+        $this->client = new Client();
+
+        try {
+            $this->client->delete($this->apiUrl . '/' . $id);
+
+            return redirect('/reserva/lista')->with('success', 'Livro devolvido com sucesso!');
+        } catch (Exception $e) {
+            return view('api_error', ['error' => $e->getMessage()]);
+        }
     }
 
 }

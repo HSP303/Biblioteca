@@ -71,11 +71,6 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="reservasDropdown">
                         <li>
-                            <a class="dropdown-item" href="{{ url('/reserva/cadastrar') }}" target="_blank">
-                                <i class="bi bi-plus-square"></i> Cadastrar Reserva
-                            </a>
-                        </li>
-                        <li>
                             <a class="dropdown-item" href="{{ url('/reserva/lista') }}" target="_blank">
                                 <i class="bi bi-calendar-check"></i> Lista de Reservas
                             </a>
