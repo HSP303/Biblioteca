@@ -38,7 +38,7 @@ Route::get('/livro/lista', [LivroController::class, 'getLivro'])->name('livro.ge
 Route::get('/reserva/new/{id}', [ReservaController::class, 'index'])->name('reserva.get');
 Route::get('/reserva/lista', [ReservaController::class, 'getReserva'])->name('reserva.lista');
 Route::post('/reserva/create', [ReservaController::class, 'postReserva'])->name('reserva.create');
-Route::delete('/reserva/delete', [ReservaController::class, 'deleteReserva'])->name('reserva.delete');
+Route::delete('/reserva/delete/{id}', [ReservaController::class, 'deleteReserva'])->name('reserva.delete');
 
 //Rotas para entidade pessoas
 Route::get('/pessoas/lista', [PessoaController::class, 'listaPessoas'])->name('pessoas.lista');
@@ -64,3 +64,6 @@ Route::get('/reserva/{idlivro}', [ReservaController::class, 'index'])->name('res
 //by Vini 31/05/2025
 Route::post('/reserva', [ReservaController::class, 'postReserva'])->name('reserva.store');
 require __DIR__.'/auth.php';
+//by Vini 14/06/2025 caso necessário realizar a edição de uma reserva
+Route::put('/reserva/update/{id}', [ReservaController::class, 'putReserva'])->name('reserva.update');
+Route::get('/reserva/edit/{id}', [ReservaController::class, 'editReserva'])->name('reserva.edit');
