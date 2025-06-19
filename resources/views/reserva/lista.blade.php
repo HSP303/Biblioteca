@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="mb-4">Livros Cadastrados</h1>
+    <h1 class="mb-4">Reservas</h1>
 
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
