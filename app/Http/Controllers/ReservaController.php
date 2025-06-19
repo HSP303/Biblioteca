@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use DateTimeZone;
 
 class ReservaController extends Controller
 {
@@ -85,8 +87,45 @@ class ReservaController extends Controller
     }
 
     public function deleteReserva($id) {
-        $this->client = new Client();
+        try{
+            $this->client = new Client();
 
+            $reservasResponse = $this->client ->get('http://localhost:8080/reservas/'.$id);
+
+            $reserva = json_decode($reservasResponse->getBody()->getContents(), true);
+
+            $timezone = new DateTimeZone('America/Sao_Paulo');
+            $hoje = new DateTime('now', $timezone);
+            
+            $multa = $this->calcularMulta($reserva['dataFim'], $hoje);
+            
+            $hoje = $hoje->format('Y-m-d');
+            $pessoaId = $reserva['pessoa']['id'];
+        } catch (Exception $e) { 
+                return view('api_error', ['error' => $e->getMessage()]); 
+            }
+
+        if($multa > 0){
+            try {
+                $this->client->request(
+                    'POST', 
+                    'http://localhost:8080/multas', 
+                    [
+                        'json' => [
+                            'valor' => $multa,
+                            'descricao' => 'Atraso',
+                            'dataMulta' => $hoje,
+                            'Pago' => false,
+                            'pessoaId' => $pessoaId
+                        ]
+                    ]
+                );
+
+            }
+            catch (Exception $e) { 
+                return view('api_error', ['error' => $e->getMessage()]); 
+            }
+        }
         try {
             $this->client->delete($this->apiUrl . '/' . $id);
 
@@ -94,6 +133,24 @@ class ReservaController extends Controller
         } catch (Exception $e) {
             return view('api_error', ['error' => $e->getMessage()]);
         }
+    }
+
+    private function calcularMulta($dataFim, $hoje){
+        $multa = 7;
+
+        $dataValidade = new DateTime($dataFim);
+
+        // Normaliza ambas as datas para o mesmo horário (meia-noite) para evitar diferenças de horas/minutos
+        $dataValidade->setTime(0, 0, 0);
+        $hoje->setTime(0, 0, 0);
+
+        $diasMulta = $dataValidade->diff($hoje);
+        if($diasMulta->days > 0 && ($dataValidade < $hoje)){
+            $multa += ($diasMulta->days) * 0.5;    
+        } else {
+            $multa = 0;
+        }
+        return $multa; // Retorna o total absoluto de dias
     }
 
 }

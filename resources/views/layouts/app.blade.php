@@ -42,6 +42,11 @@
                                 <i class="bi bi-person-lines-fill"></i> Lista de Pessoas
                             </a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="" target="_blank">
+                                <i class="bi bi-cash-coin"></i> Multas
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -78,7 +83,7 @@
                         
             </ul>
         </div>
-    </div>
+    </div>   
 </nav>
 
     <!-- conteudo principal -->
