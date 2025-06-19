@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LivroController;
+use App\Http\Controllers\MultasController;
 use App\Http\Controllers\PessoaController;
 use App\Http\Controllers\ReservaController;
 use Illuminate\View\View;
@@ -56,6 +57,12 @@ Route::delete('/pessoas/delete/{id}', [PessoaController::class, 'deletePessoa'])
 Route::put('/pessoas/update/{id}', [PessoaController::class, 'updatePessoa'])->name('pessoa.update');
 Route::get('/pessoas/edit/{id}', [PessoaController::class, 'editPessoa'])->name('pessoa.edit');
 
+Route::get('/multas', [MultasController::class, 'index'])->name('multas');
+Route::get('/multas/edit/{id}', [MultasController::class, 'editMultas'])->name('multas.edit');
+Route::put('/multas/update', [MultasController::class, 'putMultas'])->name('multas.put');
+Route::delete('/multas/delete/{id}', [MultasController::class, 'deleteMultas'])->name('multas.delete');
+Route::put('/multas/pagar/{id}', [MultasController::class, 'pagarMultas'])->name('multas.pagar');
+ 
 //Rotas para entidade reserva
 //by Vini 31/05/2025
 Route::get('/reserva/new/{id}', [ReservaController::class, 'index'])->name('reserva.get');

@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="" target="_blank">
+                            <a class="dropdown-item" href="{{ url('/multas') }}" target="_blank">
                                 <i class="bi bi-cash-coin"></i> Multas
                             </a>
                         </li>

@@ -53,7 +53,9 @@
                         </form>
                         
                         @if(!empty($livro['reservado']) && $livro['reservado'] ===true )
-                          <button class="btn-success btn-sm" disabled>Reservado</button>
+                          <button class="btn btn-sm me-2 btn-outline-success" disabled>
+                                    <i class="bi bi-check-circle-fill"></i> Reservado
+                          </button>
                          @else 
                         <a href="{{ route('reserva.get', ['id' => $livro['id']]) }}" class="btn btn-success btn-sm me-2">Reservar</a>
                     @endif
