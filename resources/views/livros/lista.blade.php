@@ -51,7 +51,12 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm me-2" onclick="return confirm('Deseja excluir este livro?')">Excluir</button>
                         </form>
+                        
+                        @if(!empty($livro['reservado']) && $livro['reservado'] ===true )
+                          <button class="btn-success btn-sm" disabled>Reservado</button>
+                         @else 
                         <a href="{{ route('reserva.get', ['id' => $livro['id']]) }}" class="btn btn-success btn-sm me-2">Reservar</a>
+                    @endif
                     </td>
                 </tr> 
             @endforeach
